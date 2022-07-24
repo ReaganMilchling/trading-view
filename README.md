@@ -1,2 +1,2 @@
 # TradingView
-API and front end for viewing stock data
+API for viewing stock and investment data
