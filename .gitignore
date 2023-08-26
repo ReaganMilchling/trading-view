@@ -18,7 +18,8 @@ data.txt
 .idea/**/dictionaries
 .idea/**/shelf
 .idea/misc.xml
-.idea
+.idea*
+.idea/*
 
 # AWS User-specific
 .idea/**/aws.xml

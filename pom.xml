@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.StockView</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>trading-view</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>StockView</name>
 	<description>Website to view stock data</description>
