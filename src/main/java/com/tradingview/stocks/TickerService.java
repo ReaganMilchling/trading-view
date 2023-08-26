@@ -1,15 +1,19 @@
 package com.tradingview.stocks;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class TickerService {
 
+    Logger logger = LoggerFactory.getLogger(TickerService.class);
     private final TickerRepository tickerRepository;
 
     @Autowired
@@ -22,13 +26,13 @@ public class TickerService {
     }
 
     public TickerTimeSeries getDataByTickerFromDate(String ticker, LocalDate date) {
-        ZonedDateTime zdt = date.atStartOfDay(ZoneId.systemDefault());
-        return tickerRepository.getDataByTickerFromTimestamp(ticker, zdt);
+        Timestamp time = Timestamp.valueOf(date.atStartOfDay());
+        return tickerRepository.getDataByTickerFromTimestamp(ticker, time);
     }
 
     public TickerTimeSeries getDataByTickerBeforeDate(String ticker, LocalDate date) {
-        ZonedDateTime zdt = date.atStartOfDay(ZoneId.systemDefault());
-        return tickerRepository.getDataByTickerBeforeTimestamp(ticker, zdt);
+        Timestamp time = Timestamp.valueOf(date.atStartOfDay());
+        return tickerRepository.getDataByTickerBeforeTimestamp(ticker, time);
     }
 
     public List<Ticker> getLastDayofAllTickers() {

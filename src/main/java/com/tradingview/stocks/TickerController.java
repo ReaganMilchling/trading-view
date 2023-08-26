@@ -1,6 +1,8 @@
 package com.tradingview.stocks;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import static java.time.ZonedDateTime.now;
 @RequestMapping("/ticker")
 public class TickerController {
 
+    Logger logger = LoggerFactory.getLogger(TickerController.class);
     private final TickerService tickerService;
 
     @Autowired
@@ -39,7 +42,6 @@ public class TickerController {
     public ResponseEntity<TickerTimeSeries> getDataByTicker(
             @PathVariable("ticker") String ticker
     ) {
-        System.out.println(ticker);
         return new ResponseEntity<>(tickerService.getDataByTicker(ticker), HttpStatus.OK);
     }
 
@@ -63,13 +65,6 @@ public class TickerController {
         LocalDate newDate = LocalDate.parse(date);
         TickerTimeSeries tickerList = tickerService.getDataByTickerBeforeDate(ticker, newDate);
         return new ResponseEntity<>(tickerList, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{ticker}")
-    public ResponseEntity<?> deleteTickByTicker(
-            @PathVariable String ticker
-    ) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/upload/yahoo")
