@@ -1,6 +1,15 @@
-# TradingView
-API for viewing stock and investment data
+# trading-view
 
-This is an application that I have been working on to learn about RESTful services and API's.
+## background
+This is a Spring Boot application that I am using to get familiar with Spring and RESTful API's. It uses a postgres database with the timescaleDB extension.
 
-I am using Spring Boot to integrate with a web client.
+There is a react frontend that uses chartjs to display stock data.
+
+## setup
+You will need the following file: src/main/resources/application.properties. I have ignored mine as I store my local passwords here.
+```
+spring.datasource.url=jdbc:postgresql://host:port/dbname
+spring.datasource.username=username
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.postgresql.Driver
+```
