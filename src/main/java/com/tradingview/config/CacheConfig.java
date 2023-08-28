@@ -18,6 +18,8 @@ public class CacheConfig {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         cacheManager.setCaches(Arrays.asList(
                 new ConcurrentMapCache("ticker"),
+                new ConcurrentMapCache("tickerList"),
+                new ConcurrentMapCache("relationalTickers"),
                 new ConcurrentMapCache("tickerFromTime"),
                 new ConcurrentMapCache("tickerBeforeTime")));
         return cacheManager;

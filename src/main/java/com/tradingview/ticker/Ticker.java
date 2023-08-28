@@ -1,12 +1,12 @@
-package com.tradingview.stocks;
+package com.tradingview.ticker;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
+import java.util.Objects;
 
-public class Ticker {
+public class Ticker implements Comparable<Ticker> {
 
     private String ticker;
-    private ZonedDateTime time;
-
+    private Instant time;
     private Double open;
     private Double close;
     private Double high;
@@ -16,7 +16,7 @@ public class Ticker {
     public Ticker() {
     }
 
-    public Ticker(String ticker, ZonedDateTime timestamp, Long volume, Double open, Double close, Double high, Double low) {
+    public Ticker(String ticker, Instant timestamp, Long volume, Double open, Double close, Double high, Double low) {
         this.ticker = ticker;
         this.time = timestamp;
         this.open = open;
@@ -26,6 +26,34 @@ public class Ticker {
         this.volume = volume;
     }
 
+    @Override
+    public int compareTo(Ticker other) {
+        int tmp = this.getTicker().compareTo(other.getTicker());
+        if (tmp == 0) {
+            return this.getTime().compareTo(other.getTime());
+        }
+        return tmp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticker ticker1 = (Ticker) o;
+        return Objects.equals(ticker, ticker1.ticker) && Objects.equals(time, ticker1.time)
+                && Objects.equals(open, ticker1.open) && Objects.equals(close, ticker1.close)
+                && Objects.equals(high, ticker1.high) && Objects.equals(low, ticker1.low)
+                && Objects.equals(volume, ticker1.volume);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticker, time, open, close, high, low, volume);
+    }
+
+
+    //##########
+    // Auto generated getters/setters
     public String getTicker() {
         return ticker;
     }
@@ -34,11 +62,11 @@ public class Ticker {
         this.ticker = ticker;
     }
 
-    public ZonedDateTime getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(ZonedDateTime time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

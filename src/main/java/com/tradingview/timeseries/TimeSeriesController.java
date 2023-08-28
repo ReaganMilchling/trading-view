@@ -1,6 +1,5 @@
-package com.tradingview.stocks;
+package com.tradingview.timeseries;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,39 +9,34 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import static java.time.ZonedDateTime.now;
 
 @CrossOrigin("*")
 @Component
 @RestController
-@RequestMapping("/ticker")
-public class TickerController {
+@RequestMapping("/time-series")
+public class TimeSeriesController {
 
-    Logger logger = LoggerFactory.getLogger(TickerController.class);
-    private final TickerService tickerService;
+    Logger logger = LoggerFactory.getLogger(TimeSeriesController.class);
+    private final TimeSeriesService timeSeriesService;
 
     @Autowired
-    public TickerController(TickerService tickerService) {
-        this.tickerService = tickerService;
+    public TimeSeriesController(TimeSeriesService tts) {
+        this.timeSeriesService = tts;
     }
 
-    @GetMapping("/default")
-    public ResponseEntity<List<Ticker>> getLastDayofAllTickers() {
-        return new ResponseEntity<>(tickerService.getLastDayofAllTickers(), HttpStatus.OK);
-    }
-
-    @GetMapping("/list")
-    public ResponseEntity<List<String>> getAllTickers() {
-        return new ResponseEntity<>(tickerService.getTickers(), HttpStatus.OK);
+    @GetMapping("/sorted/{ticker}")
+    public ResponseEntity<TickerTimeSeries> getAllTickerSorted(
+            @PathVariable("ticker") String ticker
+    ) {
+        //this exists just because I haven't figured out how to sort in timescaledb yet
+        return new ResponseEntity<>(timeSeriesService.getAllTickerSorted(ticker), HttpStatus.OK);
     }
 
     @GetMapping("/{ticker}")
     public ResponseEntity<TickerTimeSeries> getDataByTicker(
             @PathVariable("ticker") String ticker
     ) {
-        return new ResponseEntity<>(tickerService.getDataByTicker(ticker), HttpStatus.OK);
+        return new ResponseEntity<>(timeSeriesService.getDataByTicker(ticker), HttpStatus.OK);
     }
 
     @GetMapping("/{ticker}/from/{date}")
@@ -52,7 +46,7 @@ public class TickerController {
     ) {
         //local date is format YYYY-MM-DD
         LocalDate newDate = LocalDate.parse(date);
-        TickerTimeSeries tickerList = tickerService.getDataByTickerFromDate(ticker, newDate);
+        TickerTimeSeries tickerList = timeSeriesService.getDataByTickerFromDate(ticker, newDate);
         return new ResponseEntity<>(tickerList, HttpStatus.OK);
     }
 
@@ -63,18 +57,8 @@ public class TickerController {
     ) {
         //local date is format YYYY-MM-DD
         LocalDate newDate = LocalDate.parse(date);
-        TickerTimeSeries tickerList = tickerService.getDataByTickerBeforeDate(ticker, newDate);
+        TickerTimeSeries tickerList = timeSeriesService.getDataByTickerBeforeDate(ticker, newDate);
         return new ResponseEntity<>(tickerList, HttpStatus.OK);
-    }
-
-    @PostMapping("/upload/yahoo")
-    public void upload(JsonNode node) {
-        tickerService.getTickerFromJSON(node);
-    }
-
-    @PostMapping("/upload/schwab")
-    public void uploadSchwab(JsonNode node) {
-        tickerService.getTickerFromJSONSchwab(node);
     }
 
 }

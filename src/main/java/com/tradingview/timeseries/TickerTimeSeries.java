@@ -1,12 +1,14 @@
-package com.tradingview.stocks;
+package com.tradingview.timeseries;
 
-import java.time.ZonedDateTime;
+import com.tradingview.ticker.Ticker;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TickerTimeSeries {
     private String ticker;
-    private List<ZonedDateTime> time;
+    private List<Instant> time;
     private List<Long> volume;
     private List<Double> open;
     private List<Double> close;
@@ -23,7 +25,7 @@ public class TickerTimeSeries {
         this.low = new ArrayList<>();
     }
 
-    public TickerTimeSeries(String ticker, List<ZonedDateTime> time, List<Long> volume, List<Double> open, List<Double> close, List<Double> high, List<Double> low) {
+    public TickerTimeSeries(String ticker, List<Instant> time, List<Long> volume, List<Double> open, List<Double> close, List<Double> high, List<Double> low) {
         this.ticker = ticker;
         this.time = time;
         this.volume = volume;
@@ -33,7 +35,17 @@ public class TickerTimeSeries {
         this.low = low;
     }
 
-    public void addTime(ZonedDateTime zdt) {
+    public void addTicker(Ticker ticker) {
+        assert(this.ticker.equals(ticker.getTicker()));
+        this.addTime(ticker.getTime());
+        this.addVolume(ticker.getVolume());
+        this.addClose(ticker.getClose());
+        this.addOpen(ticker.getOpen());
+        this.addHigh(ticker.getHigh());
+        this.addLow(ticker.getLow());
+    }
+
+    public void addTime(Instant zdt) {
         this.time.add(zdt);
     }
 
@@ -57,6 +69,8 @@ public class TickerTimeSeries {
         this.low.add(low);
     }
 
+    //##########
+    // Auto generated getters/setters
     public String getTicker() {
         return ticker;
     }
@@ -65,11 +79,11 @@ public class TickerTimeSeries {
         this.ticker = ticker;
     }
 
-    public List<ZonedDateTime> getTime() {
+    public List<Instant> getTime() {
         return time;
     }
 
-    public void setTime(List<ZonedDateTime> time) {
+    public void setTime(List<Instant> time) {
         this.time = time;
     }
 
