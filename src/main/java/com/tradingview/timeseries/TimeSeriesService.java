@@ -27,9 +27,9 @@ public class TimeSeriesService {
         this.tickerService = tickerService;
     }
 
-    public TickerTimeSeries getAllTickerSorted(String ticker) {
+    public TimeSeriesTicker getAllTickerSorted(String ticker) {
         List<Ticker> list = tickerService.getAllAsTicker(ticker);
-        TickerTimeSeries tts = new TickerTimeSeries(ticker);
+        TimeSeriesTicker tts = new TimeSeriesTicker(ticker);
 
         for (Ticker item : list) {
             tts.addTicker(item);
@@ -38,7 +38,7 @@ public class TimeSeriesService {
         return tts;
     }
 
-    public TickerTimeSeries getDataByTicker(String ticker) {
+    public TimeSeriesTicker getDataByTicker(String ticker) {
         List<String> tickerlist = tickerDAO.getTickers();
 
         if (!tickerlist.contains(ticker)) {
@@ -48,12 +48,12 @@ public class TimeSeriesService {
         return timeSeriesDAO.findDataByTicker(ticker);
     }
 
-    public TickerTimeSeries getDataByTickerFromDate(String ticker, LocalDate date) {
+    public TimeSeriesTicker getDataByTickerFromDate(String ticker, LocalDate date) {
         Timestamp time = Timestamp.valueOf(date.atStartOfDay());
         return timeSeriesDAO.getDataByTickerFromTimestamp(ticker, time);
     }
 
-    public TickerTimeSeries getDataByTickerBeforeDate(String ticker, LocalDate date) {
+    public TimeSeriesTicker getDataByTickerBeforeDate(String ticker, LocalDate date) {
         Timestamp time = Timestamp.valueOf(date.atStartOfDay());
         return timeSeriesDAO.getDataByTickerBeforeTimestamp(ticker, time);
     }

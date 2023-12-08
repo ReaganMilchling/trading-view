@@ -13,7 +13,6 @@ import java.util.List;
 
 import static java.time.ZonedDateTime.now;
 
-@CrossOrigin("*")
 @Component
 @RestController
 @RequestMapping("/ticker")

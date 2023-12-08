@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
-@CrossOrigin("*")
 @Component
 @RestController
 @RequestMapping("/time-series")
@@ -25,7 +24,7 @@ public class TimeSeriesController {
     }
 
     @GetMapping("/sorted/{ticker}")
-    public ResponseEntity<TickerTimeSeries> getAllTickerSorted(
+    public ResponseEntity<TimeSeriesTicker> getAllTickerSorted(
             @PathVariable("ticker") String ticker
     ) {
         //this exists just because I haven't figured out how to sort in timescaledb yet
@@ -33,31 +32,31 @@ public class TimeSeriesController {
     }
 
     @GetMapping("/{ticker}")
-    public ResponseEntity<TickerTimeSeries> getDataByTicker(
+    public ResponseEntity<TimeSeriesTicker> getDataByTicker(
             @PathVariable("ticker") String ticker
     ) {
         return new ResponseEntity<>(timeSeriesService.getDataByTicker(ticker), HttpStatus.OK);
     }
 
     @GetMapping("/{ticker}/from/{date}")
-    public ResponseEntity<TickerTimeSeries> getDataByTickerFromDate(
+    public ResponseEntity<TimeSeriesTicker> getDataByTickerFromDate(
             @PathVariable("ticker") String ticker,
             @PathVariable("date") String date
     ) {
         //local date is format YYYY-MM-DD
         LocalDate newDate = LocalDate.parse(date);
-        TickerTimeSeries tickerList = timeSeriesService.getDataByTickerFromDate(ticker, newDate);
+        TimeSeriesTicker tickerList = timeSeriesService.getDataByTickerFromDate(ticker, newDate);
         return new ResponseEntity<>(tickerList, HttpStatus.OK);
     }
 
     @GetMapping("/{ticker}/before/{date}")
-    public ResponseEntity<TickerTimeSeries> getDataByTickerBeforeDate(
+    public ResponseEntity<TimeSeriesTicker> getDataByTickerBeforeDate(
             @PathVariable("ticker") String ticker,
             @PathVariable("date") String date
     ) {
         //local date is format YYYY-MM-DD
         LocalDate newDate = LocalDate.parse(date);
-        TickerTimeSeries tickerList = timeSeriesService.getDataByTickerBeforeDate(ticker, newDate);
+        TimeSeriesTicker tickerList = timeSeriesService.getDataByTickerBeforeDate(ticker, newDate);
         return new ResponseEntity<>(tickerList, HttpStatus.OK);
     }
 

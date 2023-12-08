@@ -6,18 +6,18 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TickerTimeSeries {
+public class TimeSeriesTicker {
     private String ticker;
-    private List<Instant> time;
+    private List<Instant> timestamp;
     private List<Long> volume;
     private List<Double> open;
     private List<Double> close;
     private List<Double> high;
     private List<Double> low;
 
-    public TickerTimeSeries(String ticker) {
+    public TimeSeriesTicker(String ticker) {
         this.ticker = ticker;
-        this.time = new ArrayList<>();
+        this.timestamp = new ArrayList<>();
         this.volume = new ArrayList<>();
         this.open = new ArrayList<>();
         this.close = new ArrayList<>();
@@ -25,9 +25,9 @@ public class TickerTimeSeries {
         this.low = new ArrayList<>();
     }
 
-    public TickerTimeSeries(String ticker, List<Instant> time, List<Long> volume, List<Double> open, List<Double> close, List<Double> high, List<Double> low) {
+    public TimeSeriesTicker(String ticker, List<Instant> time, List<Long> volume, List<Double> open, List<Double> close, List<Double> high, List<Double> low) {
         this.ticker = ticker;
-        this.time = time;
+        this.timestamp = time;
         this.volume = volume;
         this.open = open;
         this.close = close;
@@ -37,7 +37,7 @@ public class TickerTimeSeries {
 
     public void addTicker(Ticker ticker) {
         assert(this.ticker.equals(ticker.getTicker()));
-        this.addTime(ticker.getTime());
+        this.addTime(ticker.getTimestamp());
         this.addVolume(ticker.getVolume());
         this.addClose(ticker.getClose());
         this.addOpen(ticker.getOpen());
@@ -46,7 +46,7 @@ public class TickerTimeSeries {
     }
 
     public void addTime(Instant zdt) {
-        this.time.add(zdt);
+        this.timestamp.add(zdt);
     }
 
     public void addVolume(Long volume) {
@@ -79,12 +79,12 @@ public class TickerTimeSeries {
         this.ticker = ticker;
     }
 
-    public List<Instant> getTime() {
-        return time;
+    public List<Instant> getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(List<Instant> time) {
-        this.time = time;
+    public void setTimestamp(List<Instant> timestamp) {
+        this.timestamp = timestamp;
     }
 
     public List<Long> getVolume() {

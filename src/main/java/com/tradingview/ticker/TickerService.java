@@ -47,7 +47,7 @@ public class TickerService {
             Ticker data = new Ticker();
             data.setTicker(node.get("result").get(0).get("meta").get("symbol").textValue());
             Instant instant = Instant.ofEpochSecond(node.get("result").get(0).get("timestamp").get(i).longValue());
-            data.setTime(Instant.parse(node.get("result").get(0).get("meta").get("exchangeTimezoneName").textValue()));
+            data.setTimestamp(Instant.parse(node.get("result").get(0).get("meta").get("exchangeTimezoneName").textValue()));
             data.setOpen(node.get("result").get(0).get("indicators").get("quote").get(0).get("open").get(i).doubleValue());
             data.setClose(node.get("result").get(0).get("indicators").get("quote").get(0).get("close").get(i).doubleValue());
             data.setHigh(node.get("result").get(0).get("indicators").get("quote").get(0).get("high").get(i).doubleValue());
@@ -69,7 +69,7 @@ public class TickerService {
 
             data.setTicker("SPY");
             ZonedDateTime zdt = LocalDateTime.parse(node.get("Dates").get(i).textValue()).atZone(ZoneId.of("America/New_York"));
-            data.setTime(zdt.toInstant());
+            data.setTimestamp(zdt.toInstant());
             data.setOpen((double) (node.get("Elements").get(0).get("ComponentSeries").get(0).get("Values").get(i).longValue()/10f));
             data.setClose((double) (node.get("Elements").get(0).get("ComponentSeries").get(3).get("Values").get(i).longValue()/10f));
             data.setLow((double) (node.get("Elements").get(0).get("ComponentSeries").get(2).get("Values").get(i).longValue()/10f));

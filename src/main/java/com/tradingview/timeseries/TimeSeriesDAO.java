@@ -26,7 +26,7 @@ public class TimeSeriesDAO {
     }
 
     @Cacheable(value = "ticker", key = "#ticker")
-    public TickerTimeSeries findDataByTicker(String ticker) {
+    public TimeSeriesTicker findDataByTicker(String ticker) {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("ticker", ticker);
         String sql = "SELECT * FROM stocks_d WHERE ticker = :ticker";
@@ -34,7 +34,7 @@ public class TimeSeriesDAO {
     }
 
     @Cacheable(value = "tickerFromTime", key = "#ticker + #zdt")
-    public TickerTimeSeries getDataByTickerFromTimestamp(String ticker, Timestamp timestamp) {
+    public TimeSeriesTicker getDataByTickerFromTimestamp(String ticker, Timestamp timestamp) {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("ticker", ticker)
                 .addValue("time", timestamp);
@@ -43,7 +43,7 @@ public class TimeSeriesDAO {
     }
 
     @Cacheable(value = "tickerBeforeTime", key = "#ticker + #zdt")
-    public TickerTimeSeries getDataByTickerBeforeTimestamp(String ticker, Timestamp timestamp) {
+    public TimeSeriesTicker getDataByTickerBeforeTimestamp(String ticker, Timestamp timestamp) {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("ticker", ticker)
                 .addValue("time", timestamp);
