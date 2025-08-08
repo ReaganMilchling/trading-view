@@ -1,0 +1,27 @@
+services:
+  app:
+    image: trading-view:latest
+    ports:
+      - "8080:8080"
+    restart: always
+    build:
+      context: .
+    container_name: trading-view
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/stocks
+      - SPRING_DATASOURCE_USERNAME=java
+      - SPRING_DATASOURCE_PASSWORD=java
+
+  db:
+    image: "postgres:18beta1-alpine3.22"
+    container_name: stocks
+    environment:
+      - POSTGRES_DB=stocks
+      - POSTGRES_USER=java
+      - POSTGRES_PASSWORD=java
+    ports:
+      - "5433:5432"
+    volumes:
+      - ${PWD}:/docker-entrypoint-initdb.d

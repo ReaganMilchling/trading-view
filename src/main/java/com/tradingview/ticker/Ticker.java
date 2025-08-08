@@ -1,12 +1,8 @@
 package com.tradingview.ticker;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.Instant;
 import java.util.Objects;
 
-@Getter @Setter
 public class Ticker implements Comparable<Ticker> {
 
     private String ticker;
@@ -66,5 +62,61 @@ public class Ticker implements Comparable<Ticker> {
                 ", low=" + low +
                 ", volume=" + volume +
                 '}';
+    }
+
+    public String getTicker() {
+        return ticker;
+    }
+
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
+    }
+
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Double getOpen() {
+        return open;
+    }
+
+    public void setOpen(Double open) {
+        this.open = open;
+    }
+
+    public Double getClose() {
+        return close;
+    }
+
+    public void setClose(Double close) {
+        this.close = close;
+    }
+
+    public Double getHigh() {
+        return high;
+    }
+
+    public void setHigh(Double high) {
+        this.high = high;
+    }
+
+    public Double getLow() {
+        return low;
+    }
+
+    public void setLow(Double low) {
+        this.low = low;
+    }
+
+    public Long getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Long volume) {
+        this.volume = volume;
     }
 }

@@ -24,6 +24,14 @@ public class JdbcConfig {
         String username = env.getProperty("spring.datasource.username");
         String password = env.getProperty("spring.datasource.password");
 
+        if (url == null) {
+            url = "jdbc:postgresql://localhost:5433/stocks";
+        }
+
+        if (driver == null) {
+            driver = "org.postgresql.Driver";
+        }
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(url);

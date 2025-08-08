@@ -10,6 +10,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TickerService {
@@ -24,6 +25,10 @@ public class TickerService {
 
     public List<Ticker> getLastDayofAllTickers() {
         return tickerRepository.getLastDayOfAllTickers();
+    }
+
+    public List<Count> getCountOfTickers() {
+        return tickerRepository.getCountOfTickers();
     }
 
     public List<Ticker> getAllAsTicker(String ticker) {

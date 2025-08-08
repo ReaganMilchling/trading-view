@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.time.ZonedDateTime.now;
 
@@ -29,6 +30,11 @@ public class TickerController {
     @GetMapping("/default")
     public ResponseEntity<List<Ticker>> getLastDayofAllTickers() {
         return new ResponseEntity<>(tickerService.getLastDayofAllTickers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<List<Count>> getCountOfTickers() {
+        return new ResponseEntity<>(tickerService.getCountOfTickers(), HttpStatus.OK);
     }
 
     @GetMapping("/list")

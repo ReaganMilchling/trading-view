@@ -45,4 +45,10 @@ public class TickerDAO {
 
         return namedParameterJdbcTemplate.query(sql, namedParameters, new TickerRowMapper());
     }
+
+    public List<Count> getCountOfTickers() {
+        String sql = "SELECT ticker, count(*) as ct FROM stocks_d group by ticker";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Count(rs.getString("ticker"), rs.getInt("ct")));
+    }
 }
+
