@@ -1,6 +1,6 @@
-package com.tradingview.mappers;
+package com.tradingview.ticker.Mapper;
 
-import com.tradingview.ticker.Ticker;
+import com.tradingview.ticker.DTO.Ticker;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

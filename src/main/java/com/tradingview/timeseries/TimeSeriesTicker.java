@@ -1,6 +1,6 @@
 package com.tradingview.timeseries;
 
-import com.tradingview.ticker.Ticker;
+import com.tradingview.ticker.DTO.Ticker;
 
 import java.time.Instant;
 import java.util.ArrayList;

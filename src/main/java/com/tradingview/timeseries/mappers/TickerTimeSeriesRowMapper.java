@@ -1,6 +1,7 @@
-package com.tradingview.mappers;
+package com.tradingview.timeseries.mappers;
 
-import com.tradingview.ticker.Ticker;
+import com.tradingview.ticker.Mapper.TickerRowMapper;
+import com.tradingview.ticker.DTO.Ticker;
 import com.tradingview.timeseries.TimeSeriesTicker;
 import org.springframework.jdbc.core.RowMapper;
 

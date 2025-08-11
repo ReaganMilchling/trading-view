@@ -1,6 +1,9 @@
 package com.tradingview.ticker;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.tradingview.ticker.Entity.Stock;
+import com.tradingview.ticker.DTO.Ticker;
+import com.tradingview.ticker.DTO.TickerDateRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static java.time.ZonedDateTime.now;
 
@@ -29,7 +31,7 @@ public class TickerController {
 
     @GetMapping("/default")
     public ResponseEntity<List<Ticker>> getLastDayofAllTickers() {
-        return new ResponseEntity<>(tickerService.getLastDayofAllTickers(), HttpStatus.OK);
+        return new ResponseEntity<>(tickerService.getLastDayOfAllTickers(), HttpStatus.OK);
     }
 
     @GetMapping("/count")
@@ -46,7 +48,19 @@ public class TickerController {
     public ResponseEntity<List<Ticker>> getAllAsTicker(
             @PathVariable("ticker") String ticker
     ) {
-        return new ResponseEntity<>(tickerService.getAllAsTicker(ticker), HttpStatus.OK);
+        return new ResponseEntity<>(tickerService.getAllByTicker(ticker), HttpStatus.OK);
+    }
+
+    @GetMapping("/max-date/{ticker}")
+    public ResponseEntity<List<Stock>> getTopByTicker(
+            @PathVariable("ticker") String ticker
+    ) {
+        return new ResponseEntity<>(tickerService.getTopTimeByTicker(ticker), HttpStatus.OK);
+    }
+
+    @GetMapping("/date-range")
+    public ResponseEntity<List<TickerDateRange>> getDateRange() {
+        return new ResponseEntity<>(tickerService.getDateRange(), HttpStatus.OK);
     }
 
     @PostMapping("/upload/yahoo")

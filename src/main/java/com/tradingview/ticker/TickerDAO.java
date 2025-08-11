@@ -1,6 +1,9 @@
 package com.tradingview.ticker;
 
-import com.tradingview.mappers.TickerRowMapper;
+import com.tradingview.ticker.Mapper.TickerDateRangeMapper;
+import com.tradingview.ticker.Mapper.TickerRowMapper;
+import com.tradingview.ticker.DTO.Ticker;
+import com.tradingview.ticker.DTO.TickerDateRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,11 @@ public class TickerDAO {
     public List<String> getTickers() {
         String sql = "SELECT DISTINCT ticker from stocks_d";
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("ticker"));
+    }
+
+    public List<TickerDateRange> getTickerDateRange() {
+        String sql = "select max(time) as latest, min(time) as earliest, ticker from stocks_d group by ticker order by ticker";
+        return jdbcTemplate.query(sql, new TickerDateRangeMapper());
     }
 
     @Cacheable(value = "relationalTickers", key = "#ticker")

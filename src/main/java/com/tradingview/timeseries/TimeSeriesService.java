@@ -1,6 +1,6 @@
 package com.tradingview.timeseries;
 
-import com.tradingview.ticker.Ticker;
+import com.tradingview.ticker.DTO.Ticker;
 import com.tradingview.ticker.TickerDAO;
 import com.tradingview.ticker.TickerService;
 import org.slf4j.Logger;

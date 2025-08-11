@@ -1,5 +1,8 @@
 package com.tradingview;
 
+import org.jooq.SQLDialect;
+import org.jooq.impl.DefaultConfiguration;
+import org.jooq.impl.DefaultExecuteListenerProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

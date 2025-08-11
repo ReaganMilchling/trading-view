@@ -1,11 +1,16 @@
-package com.tradingview.ticker;
+package com.tradingview.ticker.DTO;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tradingview.ticker.Entity.Stock;
 
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
 public class Ticker implements Comparable<Ticker> {
 
     private String ticker;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "UTC")
     private Instant timestamp;
     private Double open;
     private Double close;
@@ -24,6 +29,16 @@ public class Ticker implements Comparable<Ticker> {
         this.high = high;
         this.low = low;
         this.volume = volume;
+    }
+
+    public Ticker(Stock stock) {
+        this.ticker = stock.getId().getTicker();
+        this.timestamp = stock.getId().getTime().toInstant(ZoneOffset.UTC);
+        this.open = stock.getOpen();
+        this.close = stock.getClose();
+        this.high = stock.getHigh();
+        this.low = stock.getLow();
+        this.volume = stock.getVolume();
     }
 
     @Override

@@ -1,6 +1,11 @@
 package com.tradingview.ticker;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.tradingview.ticker.Entity.Stock;
+import com.tradingview.ticker.Repository.TickerRepository;
+import com.tradingview.ticker.DTO.Ticker;
+import com.tradingview.ticker.DTO.TickerDateRange;
+import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,37 +15,53 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TickerService {
 
     Logger logger = LoggerFactory.getLogger(TickerService.class);
-    private final TickerDAO tickerRepository;
+    private final TickerDAO tickerDAO;
+    private final EntityManager entityManager;
+    private final TickerRepository tickerRepository;
 
     @Autowired
-    public TickerService(TickerDAO tickerRepository) {
+    public TickerService(TickerDAO tickerDAO, EntityManager entityManager, TickerRepository tickerRepository) {
+        this.tickerDAO = tickerDAO;
+        this.entityManager = entityManager;
         this.tickerRepository = tickerRepository;
     }
 
-    public List<Ticker> getLastDayofAllTickers() {
-        return tickerRepository.getLastDayOfAllTickers();
+    public List<TickerDateRange> getDateRange() {
+        return tickerDAO.getTickerDateRange();
+    }
+
+    public List<Ticker> getLastDayOfAllTickers() {
+        return tickerDAO.getLastDayOfAllTickers();
     }
 
     public List<Count> getCountOfTickers() {
-        return tickerRepository.getCountOfTickers();
+        return tickerDAO.getCountOfTickers();
+    }
+
+    public List<Ticker> getAllByTicker(String ticker) {
+        return tickerRepository.findAllByIdTickerOrderByIdTimeDesc(ticker)
+                .stream()
+                .map(Ticker::new)
+                .toList();
+    }
+
+    public List<Stock> getTopTimeByTicker(String ticker) {
+        return tickerRepository.findTopIdTimeByIdTicker(ticker);
     }
 
     public List<Ticker> getAllAsTicker(String ticker) {
-        List<Ticker> list = tickerRepository.getAllAsTicker(ticker);
+        List<Ticker> list = tickerDAO.getAllAsTicker(ticker);
         Collections.sort(list);
-        logger.info("Returning {} sorted records for {}", list.size(), ticker);
-
         return list;
     }
 
     public List<String> getTickers() {
-        return tickerRepository.getTickers();
+        return tickerDAO.getTickers();
     }
 
     public void getTickerFromJSON(JsonNode node) {
