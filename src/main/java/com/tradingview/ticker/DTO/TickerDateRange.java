@@ -5,7 +5,6 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class TickerDateRange {
     private String ticker;

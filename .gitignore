@@ -4,7 +4,6 @@
 
 ### Personal ignore files
 *.json
-application.properties
 data.txt
 
 ### Intellij ###

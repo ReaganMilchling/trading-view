@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.time.ZonedDateTime.now;
-
 @Component
 @RestController
 @RequestMapping("/ticker")
